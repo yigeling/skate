@@ -43,7 +43,7 @@ class User_info(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(128), db.ForeignKey('user.username'), nullable=False, unique=True)
     sex = db.Column(db.String(128), nullable=True)
-    photo = db.Column(db.String(128), nullable=True)
+    photo = db.Column(db.String(256), nullable=True)
     signature = db.Column(db.String(128), nullable=True)
     age = db.Column(db.Integer, nullable=True)
 
@@ -59,8 +59,8 @@ class User_post(db.Model):
     u_id = db.Column(db.Integer, db.ForeignKey('user_info.id'))
     username = db.Column(db.String(128))
     head = db.Column(db.Integer, default=0)
-    content = db.Column(db.String(128), nullable=True)
-    photo = db.Column(db.String(128), nullable=True)
+    content = db.Column(db.String(512), nullable=True)
+    photo = db.Column(db.String(512), nullable=True)
     user_like = db.Column(db.Integer, nullable=False)
     add_time = db.Column(db.DateTime, default=datetime.datetime.now)
 

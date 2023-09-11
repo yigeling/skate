@@ -52,64 +52,7 @@ class PostlikeView(Resource):
             print('new',new)
             return generate_response(code=0, data=new)
         else:
-            return generate_response(code=1)
+            return generate_response(code=1, message="未登录")
 
 api.add_resource(PostlikeView, "/userlike/<id>", endpoint="postid")
 
-# class qiQiutest(Resource):
-#     @auth_required
-#     def post(self):
-#         # 配置七牛云的相关参数
-#         access_key = 'VXNY_oVAwVsXUfq1X8e3iH81lzLVIPdXO9eKRfzU'
-#         secret_key = 'E--8ljmpTGoOa6ozzOOxIMNL8-r17S2S2rcA1NfN'
-#         bucket_name = '7up'
-#         qiniu_domain = ''
-#         # 初始化
-#         q = Auth(access_key, secret_key)
-#         # 上传token
-#         file = request.files['file']
-#         if file:
-#             # 生成上传 Token
-#             token = q.upload_token(bucket_name)
-#             # 上传文件到七牛云
-#             ret, info = put_file(token, None, file.read())
-#             if ret and ret.get('key'):
-#                 # 构建图片 URL
-#                 if qiniu_domain:
-#                     image_url = f'{qiniu_domain}/{ret["key"]}'
-#                 else:
-#                     image_url = f'http://{bucket_name}.bkt.clouddn.com/{ret["key"]}'
-#                 # 返回图片 URL
-#                 return jsonify({'url': image_url})
-#         return jsonify({'error': '上传失败'})
-#
-# api.add_resource(qiQiutest, "/test")
-
-class qiQiutest(Resource):
-    @auth_required
-    def post(self):
-        # 配置七牛云的相关参数
-        access_key = 'VXNY_oVAwVsXUfq1X8e3iH81lzLVIPdXO9eKRfzU'
-        secret_key = 'E--8ljmpTGoOa6ozzOOxIMNL8-r17S2S2rcA1NfN'
-        bucket_name = '7up'
-        qiniu_domain = 'rziyokt30.hn-bkt.clouddn.com'
-        # 初始化
-        q = Auth(access_key, secret_key)
-        # 上传token
-        file = request.files['file']
-        if file:
-            # 生成上传 Token
-            token = q.upload_token(bucket_name)
-            # 上传文件到七牛云
-            ret, info = put_file(token, None, file.read())
-            if ret and ret.get('key'):
-                # 构建图片 URL
-                if qiniu_domain:
-                    image_url = f'{qiniu_domain}/{ret["key"]}'
-                else:
-                    image_url = f'http://{bucket_name}.bkt.clouddn.com/{ret["key"]}'
-                # 返回图片 URL
-                return jsonify({'url': image_url})
-        return jsonify({'error': '上传失败'})
-
-api.add_resource(qiQiutest, "/upload")
